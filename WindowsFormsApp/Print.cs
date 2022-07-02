@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OOPLib.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,16 @@ namespace WindowsFormsApp
         public Print()
         {
             InitializeComponent();
+        }
+
+        //public Print(List<Player> players, string)
+
+
+
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            printPreviewDialog.ShowDialog();
         }
     }
 }

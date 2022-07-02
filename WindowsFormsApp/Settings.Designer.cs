@@ -38,7 +38,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 14);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 13);
             this.label1.TabIndex = 0;
@@ -48,7 +48,7 @@
             // 
             this.ddlChampionship.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddlChampionship.FormattingEnabled = true;
-            this.ddlChampionship.Location = new System.Drawing.Point(94, 6);
+            this.ddlChampionship.Location = new System.Drawing.Point(94, 11);
             this.ddlChampionship.Name = "ddlChampionship";
             this.ddlChampionship.Size = new System.Drawing.Size(157, 21);
             this.ddlChampionship.TabIndex = 1;
@@ -57,7 +57,7 @@
             // 
             this.ddlLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddlLanguage.FormattingEnabled = true;
-            this.ddlLanguage.Location = new System.Drawing.Point(94, 42);
+            this.ddlLanguage.Location = new System.Drawing.Point(94, 50);
             this.ddlLanguage.Name = "ddlLanguage";
             this.ddlLanguage.Size = new System.Drawing.Size(157, 21);
             this.ddlLanguage.TabIndex = 3;
@@ -65,7 +65,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 45);
+            this.label2.Location = new System.Drawing.Point(12, 53);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 2;
@@ -73,7 +73,7 @@
             // 
             // btnSaveSettings
             // 
-            this.btnSaveSettings.Location = new System.Drawing.Point(125, 80);
+            this.btnSaveSettings.Location = new System.Drawing.Point(117, 90);
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(75, 23);
             this.btnSaveSettings.TabIndex = 4;

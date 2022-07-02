@@ -88,6 +88,7 @@
             this.btnGoals.TabIndex = 5;
             this.btnGoals.Text = "Goal";
             this.btnGoals.UseVisualStyleBackColor = true;
+            this.btnGoals.Click += new System.EventHandler(this.btnGoals_Click);
             // 
             // btnCards
             // 
@@ -97,6 +98,7 @@
             this.btnCards.TabIndex = 6;
             this.btnCards.Text = "Cards";
             this.btnCards.UseVisualStyleBackColor = true;
+            this.btnCards.Click += new System.EventHandler(this.btnCards_Click);
             // 
             // btnVisitors
             // 
@@ -106,6 +108,7 @@
             this.btnVisitors.TabIndex = 7;
             this.btnVisitors.Text = "Visitors";
             this.btnVisitors.UseVisualStyleBackColor = true;
+            this.btnVisitors.Click += new System.EventHandler(this.btnVisitors_Click);
             // 
             // MainForm
             // 

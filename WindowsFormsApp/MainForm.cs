@@ -49,5 +49,27 @@ namespace WindowsFormsApp
                 allPlayersPanel.Controls.Add(new PlayerControl(player, player.Favorite));
             }
         }
+
+        private void btnGoals_Click(object sender, EventArgs e)
+        {
+            if (players != null)
+            {
+               // new Print(players, "goals").ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Players are empty");
+            }
+        }
+
+        private void btnCards_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnVisitors_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
