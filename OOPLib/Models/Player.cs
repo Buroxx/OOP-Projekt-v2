@@ -20,8 +20,8 @@ namespace OOPLib.Models
 
         [JsonProperty("position")]
         public String Position { get; set; }
-        public int ZabijeniGolovi { get; set; }
-        public int ZutiKartoni { get; set; }
+        public int Goals { get; set; }
+        public int Cards { get; set; }
         public String Image { get; set; }
         public bool Favorite { get; set; }
     }

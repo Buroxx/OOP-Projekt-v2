@@ -1,4 +1,7 @@
-﻿namespace WindowsFormsApp
+﻿using System;
+using System.Drawing.Printing;
+
+namespace WindowsFormsApp
 {
     partial class Print
     {
@@ -29,18 +32,19 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Print));
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.displayPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.btnPrint = new System.Windows.Forms.Button();
             this.printDocument = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog = new System.Windows.Forms.PrintPreviewDialog();
             this.SuspendLayout();
             // 
-            // flowLayoutPanel1
+            // displayPanel
             // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 12);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(444, 517);
-            this.flowLayoutPanel1.TabIndex = 0;
+            this.displayPanel.AutoScroll = true;
+            this.displayPanel.Location = new System.Drawing.Point(12, 12);
+            this.displayPanel.Name = "displayPanel";
+            this.displayPanel.Size = new System.Drawing.Size(410, 517);
+            this.displayPanel.TabIndex = 0;
             // 
             // btnPrint
             // 
@@ -52,11 +56,17 @@
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
+            // printDocument
+            // 
+            this.printDocument.EndPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument_EndPrint);
+            this.printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument_PrintPage);
+            // 
             // printPreviewDialog
             // 
             this.printPreviewDialog.AutoScrollMargin = new System.Drawing.Size(0, 0);
             this.printPreviewDialog.AutoScrollMinSize = new System.Drawing.Size(0, 0);
             this.printPreviewDialog.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewDialog.Document = this.printDocument;
             this.printPreviewDialog.Enabled = true;
             this.printPreviewDialog.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog.Icon")));
             this.printPreviewDialog.Name = "printPreviewDialog";
@@ -68,16 +78,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(468, 585);
             this.Controls.Add(this.btnPrint);
-            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.displayPanel);
             this.Name = "Print";
             this.Text = "Print";
             this.ResumeLayout(false);
 
         }
 
+
+
         #endregion
 
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel displayPanel;
         private System.Windows.Forms.Button btnPrint;
         private System.Drawing.Printing.PrintDocument printDocument;
         private System.Windows.Forms.PrintPreviewDialog printPreviewDialog;

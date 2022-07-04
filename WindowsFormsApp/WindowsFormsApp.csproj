@@ -72,11 +72,23 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\MatchRankControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\MatchRankControl.Designer.cs">
+      <DependentUpon>MatchRankControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\PlayerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\PlayerControl.Designer.cs">
       <DependentUpon>PlayerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\RankControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\RankControl.Designer.cs">
+      <DependentUpon>RankControl.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="FavoriteTeam.resx">
       <DependentUpon>FavoriteTeam.cs</DependentUpon>
@@ -100,8 +112,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UserControls\MatchRankControl.resx">
+      <DependentUpon>MatchRankControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\PlayerControl.resx">
       <DependentUpon>PlayerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\RankControl.resx">
+      <DependentUpon>RankControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

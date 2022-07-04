@@ -15,6 +15,11 @@ namespace OOPLib.Models
         [JsonProperty("location")]
         public string Location { get; set; }
 
+        [JsonProperty("attendance")]
+        public string Attendance { get; set; }
+
+        public int GetAttendance() => int.Parse(Attendance);
+        
         [JsonProperty("status")]
         public string Status { get; set; }
 
