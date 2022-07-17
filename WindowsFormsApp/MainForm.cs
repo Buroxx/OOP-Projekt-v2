@@ -115,5 +115,42 @@ namespace WindowsFormsApp
             }
             new Print(matches).ShowDialog();
         }
+
+        private void lblSettings_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new Settings().Show();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Do you want to exit?", "Confirm", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                Dispose();
+                Application.Exit();
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private void allPlayersPanel_DragDrop(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void favoritePlayersPanel_DragDrop(object sender, DragEventArgs e)
+        {
+            var player = (PlayerControl)e.Data.GetData(typeof(PlayerControl));
+
+            if (player.Parent == allPlayersPanel && (favoritePlayersPanel.Controls.Count)<3)
+            {
+                player.isSelected = true;
+
+            }
+
+        }
     }
 }

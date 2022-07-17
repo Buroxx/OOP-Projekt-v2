@@ -17,6 +17,7 @@ namespace OOPLib
         private static string FAVORITETEAM_PATH = PATH + "favoriteteam.txt";
 
         private static string PICKED_CHAMPIONSHIP;
+
         private static string PICKED_LANGUAGE;
         private static string PICKED_FAVORITE_TEAM;
         private static string PICKED_FIFA_CODE;
