@@ -17,14 +17,11 @@ namespace WindowsFormsApp
     {
         private List<Player> players;
         private List<Match> matches;
-
+        public List<string> favorites = new List<String>();
         public MainForm()
         {
             InitializeComponent();
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
+            favorites = Repository.LoadFavorites();
             LoadDataAsync();
         }
 
@@ -46,7 +43,20 @@ namespace WindowsFormsApp
             }
             foreach (Player player in players)
             {
+                bool used = false;
+
+                foreach (string favorite in favorites)
+                {
+                    if (player.Name == favorite)
+                    {
+                        favoritePlayersPanel.Controls.Add(new PlayerControl(player, true));
+                        used = true;
+                    }
+                }
+                if (!used)
+                {
                 allPlayersPanel.Controls.Add(new PlayerControl(player, player.Favorite));
+                }
             }
             foreach (Match match in matches)
             {
@@ -118,6 +128,7 @@ namespace WindowsFormsApp
 
         private void lblSettings_Click(object sender, EventArgs e)
         {
+            InitializeComponent();
             this.Hide();
             new Settings().Show();
         }
@@ -127,9 +138,9 @@ namespace WindowsFormsApp
             DialogResult result = MessageBox.Show("Do you want to exit?", "Confirm", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
+                Repository.SaveFavoritePlayers(favorites);
                 Dispose();
-                Application.Exit();
-            }
+             }
             else
             {
                 return;
@@ -138,19 +149,39 @@ namespace WindowsFormsApp
 
         private void allPlayersPanel_DragDrop(object sender, DragEventArgs e)
         {
+            PlayerControl player = (PlayerControl)e.Data.GetData(typeof(PlayerControl));
 
+            if (player.Parent == favoritePlayersPanel)
+            {
+                player.isSelected = false;
+                allPlayersPanel.Controls.Add(player);
+
+                favorites.Remove(player.player.Name);
+            }
         }
 
         private void favoritePlayersPanel_DragDrop(object sender, DragEventArgs e)
         {
-            var player = (PlayerControl)e.Data.GetData(typeof(PlayerControl));
+            PlayerControl player = (PlayerControl)e.Data.GetData(typeof(PlayerControl));
 
-            if (player.Parent == allPlayersPanel && (favoritePlayersPanel.Controls.Count)<3)
+            if (player.Parent == allPlayersPanel && (favoritePlayersPanel.Controls.Count) < 3)
             {
                 player.isSelected = true;
+                favoritePlayersPanel.Controls.Add(player);
 
+                favorites.Add(player.player.Name);
             }
-
         }
+
+        private void allPlayersPanel_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void favoritePlayersPanel_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
     }
 }

@@ -14,6 +14,7 @@ namespace WindowsFormsApp.UserControls
     public partial class PlayerControl : UserControl
     {
         public Player player;
+        public bool isSelected = false;
         public PlayerControl()
         {
             InitializeComponent();
@@ -33,10 +34,21 @@ namespace WindowsFormsApp.UserControls
             }
         }
 
-
-
-
-
-
+        private void PlayerControl_MouseDown(object sender, MouseEventArgs e)
+        {
+            PlayerControl playerControl = sender as PlayerControl;
+            if (e.Button == MouseButtons.Left)
+            {
+                playerControl.DoDragDrop(playerControl, DragDropEffects.Move);
+                if (isSelected)
+                {
+                    pictureBoxStar.Visible = true;
+                }
+                else
+                {
+                    pictureBoxStar.Visible = false;
+                }
+            }
+        }
     }
 }

@@ -107,6 +107,7 @@
             this.Controls.Add(this.lblName);
             this.Name = "PlayerControl";
             this.Size = new System.Drawing.Size(323, 130);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PlayerControl_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxStar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);

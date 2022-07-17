@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -31,7 +33,7 @@ namespace WindowsFormsApp
            ddlChampionship.SelectedIndex = 0;
 
            ddlLanguage.Items.Add("English");
-           ddlLanguage.Items.Add("Croatian");
+           ddlLanguage.Items.Add("Hrvatski");
            ddlLanguage.SelectedIndex = 0;
         }
 
@@ -46,6 +48,41 @@ namespace WindowsFormsApp
             Repository.SaveSettings(settings);
             this.Hide();
             new FavoriteTeam().Show();
+        }
+
+        private void SetCulture(string language)
+        {
+            CultureInfo cultureinfo = new CultureInfo(language);
+            Thread.CurrentThread.CurrentUICulture = cultureinfo;
+            Thread.CurrentThread.CurrentCulture = cultureinfo;
+        }
+
+        private void ddlLanguage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string culture = ddlLanguage.Text;
+            string pickedCulture;
+
+            if (culture == "English")
+            {
+                pickedCulture = "EN";
+                SetCulture(pickedCulture);
+            }
+            else
+            {
+                pickedCulture = "HR";
+                SetCulture(pickedCulture);
+            }
+
+            if (Thread.CurrentThread.CurrentUICulture.Name == "HR")
+            {
+                SetCulture("EN");
+            }
+            else
+            {
+                SetCulture("HR");
+            }
+
+
         }
     }
 }

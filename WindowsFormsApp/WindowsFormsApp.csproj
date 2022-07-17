@@ -90,14 +90,29 @@
     <Compile Include="UserControls\RankControl.Designer.cs">
       <DependentUpon>RankControl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="FavoriteTeam.hr-HR.resx">
+      <DependentUpon>FavoriteTeam.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FavoriteTeam.resx">
       <DependentUpon>FavoriteTeam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.hr-HR.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Print.hr-HR.resx">
+      <DependentUpon>Print.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Print.resx">
       <DependentUpon>Print.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings.hr-HR.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings.hr.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>

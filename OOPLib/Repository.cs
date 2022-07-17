@@ -15,6 +15,7 @@ namespace OOPLib
         private static string PATH = "../../../";
         private static string SETTINGS_PATH = PATH + "settings.txt";
         private static string FAVORITETEAM_PATH = PATH + "favoriteteam.txt";
+        private static string FAVORITEPLAYERS_PATH = PATH + "favoriteplayers.txt";
 
         private static string PICKED_CHAMPIONSHIP;
 
@@ -23,7 +24,7 @@ namespace OOPLib
         private static string PICKED_FIFA_CODE;
 
         private static string MALE_CHAMPIONSHIP_URL = "https://world-cup-json-2018.herokuapp.com/teams/results";
-        private static string FEMALE_CHAMPIONSHIP_URL = "http://worldcup.sfg.io/teams/results"; // ZA VRIJEME PISANJA PROJEKTA LINK NE RADI PA SE KORISTI FILE
+        private static string FEMALE_CHAMPIONSHIP_URL = "http://worldcup.sfg.io/teams/results";
 
         private static string MALE_CHAMPIONSHIP_FILE = PATH + "JsonData/men/";
         private static string FEMALE_CHAMPIONSHIP_FILE = PATH + "JsonData/women/";
@@ -32,7 +33,7 @@ namespace OOPLib
         {
             PICKED_FAVORITE_TEAM = favoriteTeam.Country;
             PICKED_FIFA_CODE = favoriteTeam.FifaCode;
-            using(StreamWriter writter = new StreamWriter(FAVORITETEAM_PATH))
+            using (StreamWriter writter = new StreamWriter(FAVORITETEAM_PATH))
             {
                 writter.Write(favoriteTeam);
             }
@@ -49,19 +50,94 @@ namespace OOPLib
             PICKED_CHAMPIONSHIP = settings.Championship;
             PICKED_LANGUAGE = settings.Language;
         }
-
-        private static void LoadSettings()
+        public static void SaveFavoritePlayers(List<string> favorites)
         {
-            using (StreamReader reader = new StreamReader(SETTINGS_PATH))
+            using (StreamWriter writter = new StreamWriter(FAVORITEPLAYERS_PATH))
             {
-                List<string> settings = new List<string>();
+                foreach (string favorite in favorites)
+                {
+                    writter.Write(favorite);
+                    writter.Write(Environment.NewLine);
+                }
+            }
+        }
+        public static char LoadSettings()
+        {
+            if (!File.Exists(SETTINGS_PATH))
+            {
+                File.AppendAllText(SETTINGS_PATH, "");
+
+            }
+            if (!File.Exists(FAVORITETEAM_PATH))
+            {
+                File.AppendAllText(FAVORITETEAM_PATH, "");
+            }
+
+            List<string> settings = new List<string>();
+            if (String.IsNullOrEmpty(PICKED_CHAMPIONSHIP) || String.IsNullOrEmpty(PICKED_LANGUAGE))
+            {
+                using (StreamReader reader = new StreamReader(SETTINGS_PATH))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        settings.Add(reader.ReadLine());
+                    }
+                    if (settings.Count > 0)
+                    {
+                        PICKED_CHAMPIONSHIP = settings[0];
+                        PICKED_LANGUAGE = settings[1];
+                    }
+                }
+            }
+            if (String.IsNullOrEmpty(PICKED_FIFA_CODE))
+            {
+                List<string> info = new List<string>();
+                using (StreamReader reader = new StreamReader(FAVORITETEAM_PATH))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        info.Add(reader.ReadLine());
+                    }
+                }
+
+                if (info.Count != 0)
+                {
+                    string[] details = info[0].Split('(');
+                    string code = details[1].Substring(0, 3);
+                    PICKED_FIFA_CODE = code;
+                }
+            }
+
+            if (PICKED_CHAMPIONSHIP == null || PICKED_LANGUAGE == null)
+            {
+                return 's';
+            }
+
+            if (String.IsNullOrEmpty(PICKED_FIFA_CODE))
+            {
+                return 'f';
+            }
+            else
+            {
+                return 'a';
+            }
+        }
+        public static List<string> LoadFavorites()
+        {
+            if (!File.Exists(FAVORITEPLAYERS_PATH))
+            {
+                File.AppendAllText(FAVORITEPLAYERS_PATH, "");
+            }
+
+            List<string> favorites = new List<string>();
+            using (StreamReader reader = new StreamReader(FAVORITEPLAYERS_PATH))
+            {
                 while (!reader.EndOfStream)
                 {
-                    settings.Add(reader.ReadLine());
+                    favorites.Add(reader.ReadLine());
                 }
-                PICKED_CHAMPIONSHIP = settings[0];
-                PICKED_LANGUAGE = settings[1];
             }
+            return favorites;
         }
 
         //FavoriteTeam
@@ -96,7 +172,7 @@ namespace OOPLib
 
             if (PICKED_CHAMPIONSHIP == "Male")
             {
-                pickedPath= "http://world-cup-json-2018.herokuapp.com/matches/country?fifa_code=";
+                pickedPath = "http://world-cup-json-2018.herokuapp.com/matches/country?fifa_code=";
             }
             else
             {

@@ -40,19 +40,13 @@ namespace WindowsFormsApp
             // 
             // displayPanel
             // 
-            this.displayPanel.AutoScroll = true;
-            this.displayPanel.Location = new System.Drawing.Point(12, 12);
+            resources.ApplyResources(this.displayPanel, "displayPanel");
             this.displayPanel.Name = "displayPanel";
-            this.displayPanel.Size = new System.Drawing.Size(410, 517);
-            this.displayPanel.TabIndex = 0;
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(197, 536);
+            resources.ApplyResources(this.btnPrint, "btnPrint");
             this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(75, 37);
-            this.btnPrint.TabIndex = 1;
-            this.btnPrint.Text = "Print";
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
@@ -63,24 +57,17 @@ namespace WindowsFormsApp
             // 
             // printPreviewDialog
             // 
-            this.printPreviewDialog.AutoScrollMargin = new System.Drawing.Size(0, 0);
-            this.printPreviewDialog.AutoScrollMinSize = new System.Drawing.Size(0, 0);
-            this.printPreviewDialog.ClientSize = new System.Drawing.Size(400, 300);
+            resources.ApplyResources(this.printPreviewDialog, "printPreviewDialog");
             this.printPreviewDialog.Document = this.printDocument;
-            this.printPreviewDialog.Enabled = true;
-            this.printPreviewDialog.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog.Icon")));
             this.printPreviewDialog.Name = "printPreviewDialog";
-            this.printPreviewDialog.Visible = false;
             // 
             // Print
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(468, 585);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.displayPanel);
             this.Name = "Print";
-            this.Text = "Print";
             this.ResumeLayout(false);
 
         }

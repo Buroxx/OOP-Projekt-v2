@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OOPLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,20 @@ namespace WindowsFormsApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Settings());
+            switch (Repository.LoadSettings())
+            {
+                case 's':
+                    Application.Run(new Settings());
+                    break;
+                case 'f':
+                    Application.Run(new FavoriteTeam());
+                    break;
+                case 'a':
+                    Application.Run(new MainForm());
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
