@@ -71,4 +71,36 @@ namespace OOPLib.Models
         [JsonProperty("last_score_update_at")]
         public DateTimeOffset LastScoreUpdateAt { get; set; }
     }
+
+    public enum Position { Defender, Forward, Goalie, Midfield };
+    public partial class StartingEleven
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("captain")]
+        public bool Captain { get; set; }
+
+        [JsonProperty("shirt_number")]
+        public long ShirtNumber { get; set; }
+
+        [JsonProperty("position")]
+        public Position Position { get; set; }
+
+        public bool Favourite { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return obj is StartingEleven eleven &&
+                   Name == eleven.Name;
+        }
+
+        public override int GetHashCode()
+        {
+            return 539060726 + EqualityComparer<string>.Default.GetHashCode(Name);
+        }
+    }
+
+
+
 }

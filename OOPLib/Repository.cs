@@ -26,8 +26,136 @@ namespace OOPLib
         private static string MALE_CHAMPIONSHIP_URL = "https://world-cup-json-2018.herokuapp.com/teams/results";
         private static string FEMALE_CHAMPIONSHIP_URL = "http://worldcup.sfg.io/teams/results";
 
+        //private static string FEMALE_MATCH_DETAILS_URL = "https://worldcup.sfg.io/matches/country?fifa_code="; 
+        private static string FEMALE_MATCH_FILE = PATH + "JsonData/women/matches.json";
+        private static string MALE_MATCH_DETAILS_URL = "https://world-cup-json-2018.herokuapp.com/matches/country?fifa_code=";
+
         private static string MALE_CHAMPIONSHIP_FILE = PATH + "JsonData/men/";
         private static string FEMALE_CHAMPIONSHIP_FILE = PATH + "JsonData/women/";
+
+
+        private static string WPF_PICKED_GENDER;
+        private static string WPF_PICKED_LANGUAGE;
+        private static string WPF_PICKED_SCREENSIZE;
+
+        private static string WPF_FAVORITE_TEAM;
+
+        private static string WPF_SETTINGS_PATH = PATH + "wpfsettings.txt";
+        private static string WPF_FAVORITETEAM_PATH = PATH + "wpffavoriteteam.txt";
+
+        //WPF
+        public static void SaveWPFSettings(WPFSettings wPFSettings)
+        {
+            WPF_PICKED_GENDER = wPFSettings.selectedGender;
+            WPF_PICKED_LANGUAGE = wPFSettings.selectedLanguage;
+            WPF_PICKED_SCREENSIZE = wPFSettings.selectedScreenSize;
+
+            using (StreamWriter writter = new StreamWriter(WPF_SETTINGS_PATH))
+            {
+                writter.WriteLine(WPF_PICKED_GENDER);
+                writter.WriteLine(WPF_PICKED_LANGUAGE);
+                writter.WriteLine(WPF_PICKED_SCREENSIZE);
+            }
+
+        }
+
+        public static string GetWPFResolution()
+        {
+            using (StreamReader reader = new StreamReader(WPF_SETTINGS_PATH))
+            {
+                List<string> wpfsettings = new List<string>();
+
+                while (!reader.EndOfStream)
+                {
+                    wpfsettings.Add(reader.ReadLine());
+                }
+                if (wpfsettings.Count > 0)
+                {
+                    WPF_PICKED_SCREENSIZE = wpfsettings[2];
+                }
+            }
+
+            return WPF_PICKED_SCREENSIZE;
+        }
+
+        public static Task<HashSet<Match>> LoadMatches(string fifa_code)
+        {
+            if (WPF_PICKED_GENDER == "Male")
+            {
+                return Task.Run(() =>
+                {
+                    var apiClient = new RestClient(MALE_MATCH_DETAILS_URL + fifa_code);
+                    var response = apiClient.Execute<HashSet<Match>>(new RestRequest());
+                    return JsonConvert.DeserializeObject<HashSet<Match>>(response.Content);
+                });
+            }
+            else
+            {
+                return Task.Run(() =>
+                {
+                    using (StreamReader reader = new StreamReader(FEMALE_MATCH_FILE))
+                    {
+                        string json = reader.ReadToEnd();
+                        return JsonConvert.DeserializeObject<HashSet<Match>>(json);
+                    }
+                });
+            }
+        }
+
+        public static void SaveWPFFavoriteTeam(WPFSettings wPFSettings)
+        {
+            WPF_FAVORITE_TEAM = wPFSettings.favoriteTeam;
+
+            using (StreamWriter writter = new StreamWriter(WPF_FAVORITETEAM_PATH))
+            {
+                writter.WriteLine(WPF_FAVORITE_TEAM);
+            }
+
+        }
+
+        public static void LoadWPFSettings()
+        {
+            List<string> wpfsettings = new List<string>();
+            using (StreamReader reader = new StreamReader(WPF_SETTINGS_PATH))
+            {
+                while (!reader.EndOfStream)
+                {
+                    wpfsettings.Add(reader.ReadLine());
+                }
+                if (wpfsettings.Count > 0)
+                {
+                    WPF_PICKED_GENDER = wpfsettings[0];
+                    WPF_PICKED_LANGUAGE = wpfsettings[1];
+                    WPF_PICKED_SCREENSIZE = wpfsettings[2];
+                }
+            }
+        }
+
+        public static Task<HashSet<Result>> LoadMatchResults()
+        {
+            LoadWPFSettings();
+
+            if (WPF_PICKED_GENDER == "Male")
+            {
+                return Task.Run(() =>
+                {
+                    var apiClient = new RestClient(MALE_CHAMPIONSHIP_URL);
+                    var response = apiClient.Execute<HashSet<Result>>(new RestRequest());
+                    return JsonConvert.DeserializeObject<HashSet<Result>>(response.Content);
+                });
+            }
+            else
+            {
+                return Task.Run(() =>
+                {
+                    var apiClient = new RestClient(FEMALE_CHAMPIONSHIP_URL);
+                    var response = apiClient.Execute<HashSet<Result>>(new RestRequest());
+                    return JsonConvert.DeserializeObject<HashSet<Result>>(response.Content);
+                });
+            }
+        }
+
+        //WIN FORM
 
         public static void SaveFavoriteTeam(Team favoriteTeam)
         {
